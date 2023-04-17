@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+
+<div id="app">
+  <v-app id="inspire">
+    <v-data-table
+      :headers="headers"
+      :items="cities"
+    >
+    </v-data-table>
+  </v-app>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="../vuetify.js"></script>
+  <script>
+
+new Vue({
+  el: '#app',
+  vuetify: new Vuetify(),
+  data: () => ({
+    headers: [
+      {
+        text: 'Название',
+        align: 'start',
+        sortable: false,
+        value: 'name',
+      },
+      { text: 'X', value: 'x' },
+      { text: 'Y', value: 'y' },
+      { text: '', value: 'actions', sortable: false },
+    ],
+    cities: [
+      {
+        id: 1,
+        name: 'Москва',
+        x: 38.9,
+        y: 65.5
+      },
+      {
+        id: 2,
+        name: 'Санкт-Петербург',
+        x: 44.4,
+        y: 62.3
+      },
+      {
+        id: 3,
+        name: 'Казань',
+        x: 22.0,
+        y: 51.3
+      },
+      {
+        id: 4,
+        name: 'Новосибирск',
+        x: 68.0,
+        y: 50.7
+      },
+      {
+        id: 5,
+        name: 'Екатеринбург',
+        x: 40.3,
+        y: 47.6
+      }
+    ]
+  }),
+
+  methods: {
+
+  },
+})
+</script>
+</body>
+</html>
