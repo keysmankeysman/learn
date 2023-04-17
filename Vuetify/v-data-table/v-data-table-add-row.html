@@ -9,11 +9,17 @@
 <body>
 
 <div id="app">
-  <v-app id="inspire">
+  <v-app>
     <v-data-table
       :headers="headers"
-      :items="cities"
+      :items="desserts"
+      class="elevation-1"
     >
+      <template v-slot:item.glutenfree="{ item }">
+        <v-simple-checkbox
+          v-model="item.glutenfree"
+        ></v-simple-checkbox>
+      </template>
     </v-data-table>
   </v-app>
 </div>
@@ -25,51 +31,80 @@
 new Vue({
   el: '#app',
   vuetify: new Vuetify(),
-  data: () => ({
-    headers: [
-      {
-        text: 'Название',
-        align: 'start',
-        sortable: false,
-        value: 'name',
-      },
-      { text: 'X', value: 'x' },
-      { text: 'Y', value: 'y' },
-      { text: '', value: 'actions', sortable: false },
-    ],
-    cities: [
-      {
-        id: 1,
-        name: 'Москва',
-        x: 38.9,
-        y: 65.5
-      },
-      {
-        id: 2,
-        name: 'Санкт-Петербург',
-        x: 44.4,
-        y: 62.3
-      },
-      {
-        id: 3,
-        name: 'Казань',
-        x: 22.0,
-        y: 51.3
-      },
-      {
-        id: 4,
-        name: 'Новосибирск',
-        x: 68.0,
-        y: 50.7
-      },
-      {
-        id: 5,
-        name: 'Екатеринбург',
-        x: 40.3,
-        y: 47.6
-      }
-    ]
-  }),
+  data () {
+    return {
+      desserts: [
+        {
+          name: 'Frozen Yogurt',
+          calories: 159,
+          fat: 6.0,
+          carbs: 24,
+          protein: 4.0,
+          iron: 1,
+          glutenfree: true,
+        },
+        {
+          name: 'Ice cream sandwich',
+          calories: 237,
+          fat: 9.0,
+          carbs: 37,
+          protein: 4.3,
+          iron: 1,
+          glutenfree: false,
+        },
+        {
+          name: 'Eclair',
+          calories: 262,
+          fat: 16.0,
+          carbs: 23,
+          protein: 6.0,
+          iron: 7,
+          glutenfree: false,
+        },
+        {
+          name: 'Jelly bean',
+          calories: 375,
+          fat: 0.0,
+          carbs: 94,
+          protein: 0.0,
+          iron: 0,
+          glutenfree: true,
+        },
+        {
+          name: 'Lollipop',
+          calories: 392,
+          fat: 0.2,
+          carbs: 98,
+          protein: 0,
+          iron: 2,
+          glutenfree: true,
+        },
+        {
+          name: 'KitKat',
+          calories: 518,
+          fat: 26.0,
+          carbs: 65,
+          protein: 7,
+          iron: 6,
+          glutenfree: false,
+        },
+      ],
+      headers: [
+        {
+          text: 'Dessert (100g serving)',
+          align: 'start',
+          sortable: false,
+          value: 'name',
+        },
+        { text: 'Calories', value: 'calories' },
+        { text: 'Fat (g)', value: 'fat' },
+        { text: 'Carbs (g)', value: 'carbs' },
+        { text: 'Protein (g)', value: 'protein' },
+        { text: 'Iron (%)', value: 'iron' },
+        { text: 'Gluten-Free', value: 'glutenfree' },
+      ],
+    }
+  },
 
   methods: {
 
