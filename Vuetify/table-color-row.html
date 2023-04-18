@@ -20,10 +20,6 @@
         <tr>
           <td :style="getColor(item[header.value])" v-for="header in tableHeaders">{{ item[header.value].includes('color') ? '' : item[header.value] }}</td>
         </tr>
-        <!-- <v-chip
-          :color="getColor(item)"
-        >
-        </v-chip> -->
       </template>
     </v-data-table>
   </v-app>
@@ -158,21 +154,21 @@ new Vue({
 
   methods: {
     getColor(item) {
-      console.log(item)
       // если в названии ячейки содержится 'color'
       if (item.includes('color')) {
         let nameColor = item.slice(6)
-
-        console.log(nameColor)
-
-        console.log(Object.keys(this.colors))
-
         // это для color.Red || color.green и т.д.
+
         if(Object.keys(this.colors).includes(nameColor)){
-          return this.colors[nameColor]
+          return `background:  ${this.colors[nameColor]}`
+        } else if (nameColor.includes('rgb')) {
+          return `background: ${nameColor}`
         } else {
-          return `color: ${nameColor}`
-        } 
+          console.log('последний вариант')
+          let str = `background: #${nameColor}`
+          console.log(str)
+          return str
+        }
 
       }
     }
