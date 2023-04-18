@@ -16,12 +16,10 @@
       sort-by="calories"
       class="elevation-1"
     >
-      <template v-slot:item.calories="{ item }">
+      <template v-slot:item.certificate_name="{ item }">
         <v-chip
-          :color="getColor(item.calories)"
-          dark
+          :color="getColor(item)"
         >
-          {{ item.calories }}
         </v-chip>
       </template>
     </v-data-table>
@@ -142,22 +140,51 @@ new Vue({
         datefrom: "01.01.2022 00:00:00",
         dateto: "31.12.2024 23:59:59",
         name_of_system: "",
-        certificate_name: "bd722264-8994-40de-a171-0c5b28c2ed34",
+        // certificate_name: "bd722264-8994-40de-a171-0c5b28c2ed34",
+        certificate_name: "color.rgb(255,99,71)",
         location_of_system: "127.0.0.1",
         id: 9
       }
-    ]
+    ],
+    colors: {
+      Red: '#FF2318',
+      Green: '#84FF18',
+      Blue: '#1833FF'
+    }
   }),
 
-  watch: {
-    dialog (val) {
-      val || this.close()
-    }
-  },
-
   methods: {
-    setColor(hex) {
-      this.currentColor = hex 
+    getColor(item) {
+      // если в названии ячейки содержится 'color'
+      if (item.certificate_name.includes('color')) {
+        let nameColor = item.certificate_name.slice(6)
+
+        console.log(nameColor)
+
+        console.log(Object.keys(this.colors))
+
+        // это для color.Red || color.green и т.д.
+        if(Object.keys(this.colors).includes(nameColor)){
+          return this.colors[nameColor]
+        } else {
+          return nameColor
+        } 
+
+
+
+        // if (nameColor.includes('rgb')) {
+        //   return 
+        // }
+
+        
+
+
+        // this.colors[]
+        // console.log(item.certificate_name)
+        // let str = '#' + item.certificate_name.slice(6)
+        // console.log(str)
+        // return str
+      }
     }
   }
 })
