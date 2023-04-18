@@ -16,11 +16,14 @@
       sort-by="calories"
       class="elevation-1"
     >
-      <template v-slot:item.certificate_name="{ item }">
-        <v-chip
+      <template v-slot:item="{ item }">
+        <tr>
+          <td :style="getColor(item[header.value])" v-for="header in tableHeaders">{{ item[header.value].includes('color') ? '' : item[header.value] }}</td>
+        </tr>
+        <!-- <v-chip
           :color="getColor(item)"
         >
-        </v-chip>
+        </v-chip> -->
       </template>
     </v-data-table>
   </v-app>
@@ -155,9 +158,10 @@ new Vue({
 
   methods: {
     getColor(item) {
+      console.log(item)
       // если в названии ячейки содержится 'color'
-      if (item.certificate_name.includes('color')) {
-        let nameColor = item.certificate_name.slice(6)
+      if (item.includes('color')) {
+        let nameColor = item.slice(6)
 
         console.log(nameColor)
 
@@ -167,23 +171,9 @@ new Vue({
         if(Object.keys(this.colors).includes(nameColor)){
           return this.colors[nameColor]
         } else {
-          return nameColor
+          return `color: ${nameColor}`
         } 
 
-
-
-        // if (nameColor.includes('rgb')) {
-        //   return 
-        // }
-
-        
-
-
-        // this.colors[]
-        // console.log(item.certificate_name)
-        // let str = '#' + item.certificate_name.slice(6)
-        // console.log(str)
-        // return str
       }
     }
   }
