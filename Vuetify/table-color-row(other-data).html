@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+
+<div id="app">
+  <v-app>
+    <v-data-table
+      :headers="tableHeaders"
+      :items="tableItems"
+      sort-by="calories"
+      class="elevation-1"
+    >
+      <template v-slot:item="{ item }">
+        <tr>
+          <!-- <td :style="getColor(item[header.value])" v-for="header in tableHeaders">{{ item[header.value].includes('color') ? '' : item[header.value] }}</td> -->
+          <td :style="getColor(item[header.value])" v-for="header in tableHeaders">{{ getValue(item[header.value]) }}</td>
+        </tr>
+      </template>
+    </v-data-table>
+  </v-app>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="vuetify.js"></script>
+  <script>
+
+new Vue({
+  el: '#app',
+  vuetify: new Vuetify(),
+  data: () => ({
+    tableHeaders: [
+      {
+        text: "Дата и время",
+        value: "datetime",
+        type: "DateTime",
+        unit: null
+      }, {
+        text: "Наименование сервера",
+        value: "server_name",
+        type: "String",
+        unit: null
+      }, {
+        text: "CPU",
+        value: "cpu",
+        type: "UInt32",
+        unit: null
+      }, {
+        text: "HDD",
+        value: "hdd",
+        type: "UInt32",
+        unit: null
+      }, {
+        text: "RAM",
+        value: "ram",
+        type: "UInt32",
+        unit: null
+      }
+
+      // {
+      //   text: "Дата внесения информации",
+      //   value: "datetime",
+      //   type: "DateTime"
+      // }, {
+      //   text: "Дата начала",
+      //   value: "datefrom",
+      //   type: "DateTime"
+      // }, {
+      //   text: "Дата завершения",
+      //   value: "dateto",
+      //   type: "DateTime"
+      // }, {
+      //   text: "Имя системы",
+      //   value: "name_of_system",
+      //   type: "String"
+      // }, {
+      //   text: "Название сертификата",
+      //   value: "certificate_name",
+      //   type: "String"
+      // }, {
+      //   text: "Расположение системы",
+      //   value: "location_of_system",
+      //   type: "String"
+      // }
+    ],
+    tableItems: 
+      [
+        {
+          datetime: "01.12.2022 00:15:23",
+          server_name: "0000000a77e91080-ru5q5w.trueconf.name",
+          cpu: 85,
+          hdd: 55,
+          ram: 55,
+          id: 0
+        }, {
+          datetime: "01.12.2022 00:40:01",
+          server_name: "0000000a77e91079-ru2x9w.trueconf.name",
+          cpu: 43,
+          hdd: 53,
+          ram: 56,
+          id: 1
+        }, {
+          datetime: "01.12.2022 02:02:53",
+          server_name: "0000000a77e91080-ru5q5w.trueconf.name",
+          cpu: 45,
+          hdd: 70,
+          ram: 47,
+          id: 2
+        }, {
+          datetime: "01.12.2022 02:09:20",
+          server_name: "0000000a77e91080-ru5q5w.trueconf.name",
+          cpu: 35,
+          hdd: 86,
+          ram: 87,
+          id: 3
+        }, {
+          datetime: "01.12.2022 03:09:52",
+          server_name: "0000000a77e91079-ru2x9w.trueconf.name",
+          cpu: 83,
+          hdd: 55,
+          ram: 67,
+          id: 4
+        }, {
+          datetime: "01.12.2022 03:38:39",
+          server_name: "0000000a77e91079-ru2x9w.trueconf.name",
+          cpu: 56,
+          hdd: 56,
+          ram: 55,
+          id: 5
+        }, {
+          datetime: "01.12.2022 04:29:51",
+          server_name: "0000000a77e91080-ru5q5w.trueconf.name",
+          cpu: 85,
+          hdd: 89,
+          ram: 36,
+          id: 6
+        }, {
+          datetime: "01.12.2022 05:52:01",
+          server_name: "0000000a77e91080-ru5q5w.trueconf.name",
+          cpu: 85,
+          hdd: 56,
+          ram: 55,
+          id: 7
+        }, {
+          datetime: "01.12.2022 07:21:22",
+          server_name: "0000000a77e91079-ru2x9w.trueconf.name",
+          cpu: 76,
+          hdd: 45,
+          ram: 54,
+          id: 8
+        }, {
+          datetime: "01.12.2022 08:03:44",
+          server_name: "0000000a77e91080-ru5q5w.trueconf.name",
+          cpu: 34,
+          hdd: 45,
+          ram: 85,
+          id: 9
+        }
+
+      //   {
+      //   datetime: "27.11.2022 00:00:00",
+      //   datefrom: "01.01.2022 00:00:00",
+      //   dateto: "31.12.2024 23:59:59",
+      //   name_of_system: "",
+      //   certificate_name: "2273ef9e-d2c0-4078-aafb-173a1e56dc24",
+      //   location_of_system: "127.0.0.1",
+      //   id: 0
+      // }, {
+      //   datetime: "27.11.2022 00:00:00",
+      //   datefrom: "01.01.2022 00:00:00",
+      //   dateto: "31.12.2024 23:59:59",
+      //   name_of_system: "",
+      //   certificate_name: "color.1980FF",
+      //   location_of_system: "127.0.0.1",
+      //   id: 1
+      // }, {
+      //   datetime: "27.11.2022 00:00:00",
+      //   datefrom: "01.01.2022 00:00:00",
+      //   dateto: "31.12.2024 23:59:59",
+      //   name_of_system: "",
+      //   certificate_name: "e3995564-1764-4a76-87bc-87813f58a4e8",
+      //   location_of_system: "127.0.0.1",
+      //   id: 2
+      // }, {
+      //   datetime: "27.11.2022 00:00:00",
+      //   datefrom: "01.01.2022 00:00:00",
+      //   dateto: "31.12.2024 23:59:59",
+      //   name_of_system: "",
+      //   certificate_name: "5322a6bf-574a-4697-abce-ecb274d755f2",
+      //   location_of_system: "127.0.0.1",
+      //   id: 3
+      // }, {
+      //   datetime: "27.11.2022 00:00:00",
+      //   datefrom: "01.01.2022 00:00:00",
+      //   dateto: "31.12.2024 23:59:59",
+      //   name_of_system: "",
+      //   certificate_name: "742ed62b-24b7-4886-b93f-1b7dfa6ea83b",
+      //   location_of_system: "127.0.0.1",
+      //   id: 4
+      // }, {
+      //   datetime: "27.11.2022 00:00:00",
+      //   datefrom: "01.01.2022 00:00:00",
+      //   dateto: "31.12.2024 23:59:59",
+      //   name_of_system: "",
+      //   certificate_name: "color.Red",
+      //   location_of_system: "127.0.0.1",
+      //   id: 5
+      // }, {
+      //   datetime: "27.11.2022 00:00:00",
+      //   datefrom: "01.01.2022 00:00:00",
+      //   dateto: "31.12.2024 23:59:59",
+      //   name_of_system: "",
+      //   certificate_name: "fee789d7-2ed1-44d1-9ff3-a757a1f5e605",
+      //   location_of_system: "127.0.0.1",
+      //   id: 6
+      // }, {
+      //   datetime: "27.11.2022 00:00:00",
+      //   datefrom: "01.01.2022 00:00:00",
+      //   dateto: "31.12.2024 23:59:59",
+      //   name_of_system: "",
+      //   certificate_name: "af9137d9-eb63-4a85-be30-cf545afabeab",
+      //   location_of_system: "127.0.0.1",
+      //   id: 7
+      // }, {
+      //   datetime: "27.11.2022 00:00:00",
+      //   datefrom: "01.01.2022 00:00:00",
+      //   dateto: "31.12.2024 23:59:59",
+      //   name_of_system: "",
+      //   certificate_name: "f235e4a8-b3c9-4869-be3a-5b6178544887",
+      //   location_of_system: "127.0.0.1",
+      //   id: 8
+      // }, {
+      //   datetime: "27.11.2022 00:00:00",
+      //   datefrom: "01.01.2022 00:00:00",
+      //   dateto: "31.12.2024 23:59:59",
+      //   name_of_system: "",
+      //   certificate_name: "bd722264-8994-40de-a171-0c5b28c2ed34",
+      //   certificate_name: "color.rgb(255,99,71)",
+      //   location_of_system: "127.0.0.1",
+      //   id: 9
+      // }
+    ],
+    colors: {
+      Red: '#FF2318',
+      Green: '#84FF18',
+      Blue: '#1833FF'
+    }
+  }),
+  
+  created() {
+    console.log(this.tableItems)
+  },
+
+  methods: {
+    getValue(item) {
+      if (typeof item === 'string') {
+        return item.includes('color') ? '' : item
+      } else {
+        return item
+      }
+    },
+
+    getColor(item) {
+      if (typeof item === 'string') {
+        if (item.includes('color') && typeof item === 'string') {
+          let nameColor = item.slice(6)
+
+          if(Object.keys(this.colors).includes(nameColor)){
+            return `background:  ${this.colors[nameColor]}`
+          } else if (nameColor.includes('rgb')) {
+            return `background: ${nameColor}`
+          } else {
+            console.log('последний вариант')
+            let str = `background: #${nameColor}`
+            console.log(str)
+            return str
+          }
+        }
+      } else {
+        return item
+      }
+
+    }
+  }
+})
+</script>
+</body>
+</html>
