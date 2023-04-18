@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+
+<div id="app">
+  <v-app>
+    <v-data-table
+      :headers="tableHeaders"
+      :items="tableItems"
+      sort-by="calories"
+      class="elevation-1"
+    >
+    </v-data-table>
+  </v-app>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="vuetify.js"></script>
+  <script>
+
+new Vue({
+  el: '#app',
+  vuetify: new Vuetify(),
+  data: () => ({
+    tableHeaders: [
+      {
+        text: "Дата внесения информации",
+        value: "datetime",
+        type: "DateTime"
+      }, {
+        text: "Дата начала",
+        value: "datefrom",
+        type: "DateTime"
+      }, {
+        text: "Дата завершения",
+        value: "dateto",
+        type: "DateTime"
+      }, {
+        text: "Имя системы",
+        value: "name_of_system",
+        type: "String"
+      }, {
+        text: "Название сертификата",
+        value: "certificate_name",
+        type: "String"
+      }, {
+        text: "Расположение системы",
+        value: "location_of_system",
+        type: "String"
+      }
+    ],
+    tableItems: 
+      [
+        {
+        "datetime": "27.11.2022 00:00:00",
+        "datefrom": "01.01.2022 00:00:00",
+        "dateto": "31.12.2024 23:59:59",
+        "name_of_system": "",
+        "certificate_name": "2273ef9e-d2c0-4078-aafb-173a1e56dc24",
+        "location_of_system": "127.0.0.1",
+        "id": 0
+      }, {
+        "datetime": "27.11.2022 00:00:00",
+        "datefrom": "01.01.2022 00:00:00",
+        "dateto": "31.12.2024 23:59:59",
+        "name_of_system": "",
+        "certificate_name": "color.1980FF",
+        "location_of_system": "127.0.0.1",
+        "id": 1
+      }, {
+        "datetime": "27.11.2022 00:00:00",
+        "datefrom": "01.01.2022 00:00:00",
+        "dateto": "31.12.2024 23:59:59",
+        "name_of_system": "",
+        "certificate_name": "e3995564-1764-4a76-87bc-87813f58a4e8",
+        "location_of_system": "127.0.0.1",
+        "id": 2
+      }, {
+        "datetime": "27.11.2022 00:00:00",
+        "datefrom": "01.01.2022 00:00:00",
+        "dateto": "31.12.2024 23:59:59",
+        "name_of_system": "",
+        "certificate_name": "5322a6bf-574a-4697-abce-ecb274d755f2",
+        "location_of_system": "127.0.0.1",
+        "id": 3
+      }, {
+        "datetime": "27.11.2022 00:00:00",
+        "datefrom": "01.01.2022 00:00:00",
+        "dateto": "31.12.2024 23:59:59",
+        "name_of_system": "",
+        "certificate_name": "742ed62b-24b7-4886-b93f-1b7dfa6ea83b",
+        "location_of_system": "127.0.0.1",
+        "id": 4
+      }, {
+        "datetime": "27.11.2022 00:00:00",
+        "datefrom": "01.01.2022 00:00:00",
+        "dateto": "31.12.2024 23:59:59",
+        "name_of_system": "",
+        "certificate_name": "color.Red",
+        "location_of_system": "127.0.0.1",
+        "id": 5
+      }, {
+        "datetime": "27.11.2022 00:00:00",
+        "datefrom": "01.01.2022 00:00:00",
+        "dateto": "31.12.2024 23:59:59",
+        "name_of_system": "",
+        "certificate_name": "fee789d7-2ed1-44d1-9ff3-a757a1f5e605",
+        "location_of_system": "127.0.0.1",
+        "id": 6
+      }, {
+        "datetime": "27.11.2022 00:00:00",
+        "datefrom": "01.01.2022 00:00:00",
+        "dateto": "31.12.2024 23:59:59",
+        "name_of_system": "",
+        "certificate_name": "af9137d9-eb63-4a85-be30-cf545afabeab",
+        "location_of_system": "127.0.0.1",
+        "id": 7
+      }, {
+        "datetime": "27.11.2022 00:00:00",
+        "datefrom": "01.01.2022 00:00:00",
+        "dateto": "31.12.2024 23:59:59",
+        "name_of_system": "",
+        "certificate_name": "f235e4a8-b3c9-4869-be3a-5b6178544887",
+        "location_of_system": "127.0.0.1",
+        "id": 8
+      }, {
+        "datetime": "27.11.2022 00:00:00",
+        "datefrom": "01.01.2022 00:00:00",
+        "dateto": "31.12.2024 23:59:59",
+        "name_of_system": "",
+        "certificate_name": "bd722264-8994-40de-a171-0c5b28c2ed34",
+        "location_of_system": "127.0.0.1",
+        "id": 9
+      }
+    ]
+  }),
+
+  watch: {
+    dialog (val) {
+      val || this.close()
+    }
+  },
+
+  methods: {
+    setColor(hex) {
+      this.currentColor = hex 
+    }
+  }
+})
+</script>
+</body>
+</html>
