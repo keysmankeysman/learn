@@ -109,10 +109,18 @@ new Vue({
   }),
   methods: {
     getColor (calories) {
+      console.log('getColor')
+      console.log(calories)
         if (calories > 400) return 'red'
         else if (calories > 200) return 'orange'
         else return 'green'
-      },
+    },
+    // getColor (calories) {
+    //   console.log('getColor')
+    //     if (calories > 400) return 'red'
+    //     else if (calories > 200) return 'orange'
+    //     else return 'green'
+    // },
   },
 })
 </script>
