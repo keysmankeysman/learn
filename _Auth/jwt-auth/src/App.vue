@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <router-link to="/first">first</router-link>
-    <router-link to="/second">second</router-link>
-    <router-link to="/third">third</router-link>
+    <router-link to="/fruits">fruits</router-link>
+    <router-link to="/login">login</router-link>
+    <router-link to="/registration">registration</router-link>
 
     <router-view class="app__router-view"></router-view>
   </div>
@@ -25,9 +25,7 @@ export default {
 
   },
   mounted() {
-    if (this.$route.path !== '/first') {
-      this.$router.push('/first')
-    }
+
   }
 }
 

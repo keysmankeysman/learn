@@ -1,9 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './components/Home'
-import First from './views/First'
-import Second from './views/Second'
-import Third from './views/Third'
 
 Vue.use(Router)
 
@@ -12,24 +8,16 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: Home
+      path: '/', component: () => import('./components/Fruit/Index'),
     },
     {
-      path: '/first',
-      name: 'first',
-      component: First
+      path: '/fruits', component: () => import('./components/Fruit/Index'),
     },
     {
-      path: '/second',
-      name: 'second',
-      component: Second
+      path: '/login', component: () => import('./components/User/Login'),
     },
     {
-      path: '/third',
-      name: 'third',
-      component: Third
+      path: '/registration', component: () => import('./components/User/Registration'),
     },
 
   ]
