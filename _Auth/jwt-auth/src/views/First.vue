@@ -1,6 +1,6 @@
 <template>
     <div>
-        <downloadExcel :data="tableItems" :fields="getExcelHeaders"> </downloadExcel>
+
     </div>
 </template>
 
