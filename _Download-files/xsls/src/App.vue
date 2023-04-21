@@ -39,27 +39,6 @@ export default {
           type: "DateTime",
           unit: null
       }],
-      tableHeaderNames: [{
-          text: "Идентификатор сессии",
-          value: "sessionIdTime",
-          type: "String",
-          unit: null
-      }, {
-          text: "Дата начала",
-          value: "startTime",
-          type: "DateTime",
-          unit: null
-      }, {
-          text: "Дата завершения",
-          value: "endTime",
-          type: "DateTime",
-          unit: null
-      }, {
-          text: "Длительность",
-          value: "duration",
-          type: "DateTime",
-          unit: null
-      }],
       tableItems: [{
           sessionIdTime: "13805147852803425116",
           startTime: "15.02.2023 13:51:30",
@@ -86,7 +65,11 @@ export default {
   },
   methods: {
     download() {
-      exportToXLSX([12,12,12], 'новый файл')
+      const data = [{
+        "squadName": "Super hero squad",
+      }]
+
+      exportToXLSX(data, 'новый файл.xlsx')
     }
   },
   mounted() {
