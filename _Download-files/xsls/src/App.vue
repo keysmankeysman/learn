@@ -65,9 +65,11 @@ export default {
   },
   methods: {
     download() {
-      const data = [{
-        "squadName": "Super hero squad",
-      }]
+      // const data = [{
+        // "squadName": [ "Super hero squad", "hADA", "Hasss"]
+        // "squadName": "Super hero squad"
+      // }]
+      const data =[ { header: '1'}, {header: '2'}]
 
       exportToXLSX(data, 'новый файл.xlsx')
     }
