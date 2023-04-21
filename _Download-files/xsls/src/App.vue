@@ -69,9 +69,21 @@ export default {
         // "squadName": [ "Super hero squad", "hADA", "Hasss"]
         // "squadName": "Super hero squad"
       // }]
-      const data =[ { header: '1'}, {header: '2'}]
+      const data = [ 
+        // { header: '1' }, {header: '2' }, { header2: '11' }, { header2: '22' }
+        { header: '1' , header2: '2' }, 
+        { header: '11', header2: '22' },
+        { header: '12', header2: '33' }
+      ]
 
-      exportToXLSX(data, 'новый файл.xlsx')
+      console.log(this.tableItems)
+      console.log(this.tableHeaders)
+
+
+      // console.log('result:', result)
+
+      let fls = true
+      if (fls) { exportToXLSX(data, 'новый файл.xlsx') }
     }
   },
   mounted() {

@@ -84,12 +84,10 @@ export default {
         },
         getExcelHeaders () {
             let excelHeaders = {};
-            console.log(this.getHeaderNames)
             this.getHeaderNames.forEach(row => {
                 // excelHeaders[row.text] = row.value;
                 excelHeaders[`${row.text}`] = row.value;
             });
-            console.log('excelHeaders', excelHeaders)
             return excelHeaders;
         }
     }
