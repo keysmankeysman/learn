@@ -19,6 +19,12 @@
               @change="setColor"
             ></v-select>
 
+            <DatePicker
+              :defaultTime="'00:00'"
+              :defaultTimestamp="+new Date()"
+              @set-time="dateStart = $event"
+            ></DatePicker>
+
         </v-container>
       </v-main>
     </v-app>
@@ -48,7 +54,8 @@
               name: 'Зеленый',
               hex: '#4DFA5C'
             }
-          ]
+          ],
+          dateStart: '04-04-2023T00:00'
         }
       },
       methods: {
