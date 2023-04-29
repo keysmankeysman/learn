@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+
+<div id="app">
+  <v-app>
+    <v-card
+      class="mx-auto"
+      max-width="400"
+      tile
+    >
+      <v-list-item three-line v-for="(item, index) in headers" :key="item.text" class="headers__list">
+        <v-list-item-content>
+          <v-list-item-title>{{ item.text  }}</v-list-item-title>
+          <v-btn @click="swapItem(item, index, 'up')">
+            <v-icon
+              large
+              color="green darken-2"
+            >
+              mdi-domain
+            </v-icon>
+          </v-btn>
+          <v-btn @click="swapItem(item, index, 'down')">
+            <v-icon
+              large
+              color="green darken-2"
+            >
+              mdi-message-text
+            </v-icon>
+          </v-btn>
+
+        </v-list-item-content>
+      </v-list-item>
+    </v-card>
+  </v-app>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="../vuetify.js"></script>
+<script>
+
+new Vue({
+  el: '#app',
+  vuetify: new Vuetify(),
+  data() {
+    return {
+      headers: [
+        {
+          text: "ФИО",
+          value: "fullName",
+          class: "header-item",
+          required: true,
+          type: "text",
+        },
+        {
+          text: "Должность",
+          value: "jobTitle",
+          class: "header-item",
+          required: false,
+          type: "text",
+        },
+        {
+          text: "Подразделение",
+          value: "unit",
+          class: "header-item",
+          required: false,
+          type: "text",
+        },
+        {
+          text: "Офис",
+          value: "office",
+          class: "header-item",
+          required: false,
+          type: "text",
+        },
+        {
+          text: "Табельный номер",
+          value: "staffNumber",
+          class: "header-item",
+          required: true,
+          type: "text",
+        },
+        {
+          text: "Email",
+          value: "email",
+          class: "header-item",
+          required: true,
+          type: "text",
+        },
+        {
+          text: "Логин",
+          value: "login",
+          class: "header-item",
+          required: false,
+          type: "text",
+        },
+      ],
+    };
+  },
+
+  methods: {
+    swapItem(item, i, side) {
+      let copyHeaders = [...this.headers]
+      switch(side) {
+      case 'up':  
+        copyHeaders.splice(i, 1)
+        copyHeaders.splice(i - 1, 0, item)
+        this.headers = []
+        this.headers = copyHeaders
+        break;
+      case 'down': 
+        copyHeaders.splice(i, 1)
+        copyHeaders.splice(i - 1, 0, item)
+        this.headers = []
+        this.headers = copyHeaders
+        break;
+      }
+      
+    }
+  },
+})
+</script>
+<style>
+.headers__list:hover {
+  background: #F2F3F8 !important;
+  cursor: pointer;
+}
+
+  
+</style>
+
+</body>
+</html>
