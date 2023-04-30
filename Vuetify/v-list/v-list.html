@@ -12,46 +12,76 @@
   <v-app>
     <v-card
       class="mx-auto"
-      max-width="400"
+      max-width="1400"
       tile
     >
-      <v-list-item three-line v-for="(item, index) in headers" :key="item.text" class="headers__list">
+    <v-list>
+      <v-list-item-group
+        v-model="selectedItem"
+        color="primary"
+      >
+        <v-list-item
+          v-for="(item, index) in headers" 
+          :key="item.text"
+        >
+          <v-list-item-content>
+            <v-list-item-title v-text="item.text"></v-list-item-title>
+          </v-list-item-content>
+          <v-list-item-icon @click="swapItem(item, index, 'upMax')">
+            <v-icon>mdi-call-split</v-icon>
+          </v-list-item-icon>
+          <v-list-item-icon @click="swapItem(item, index, 'up')">
+            <v-icon>mdi-message-text</v-icon>
+          </v-list-item-icon>
+          <v-list-item-icon @click="swapItem(item, index, 'down')">
+            <v-icon>mdi-domain</v-icon>
+          </v-list-item-icon>
+          <v-list-item-icon @click="swapItem(item, index, 'downMax')">
+            <v-icon>mdi-dialpad</v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
+
+      <!-- <v-list-item three-line  class="headers__list">
         <v-list-item-content>
           <v-list-item-title>{{ item.text  }}</v-list-item-title>
-          <v-btn @click="swapItem(item, index, 'upMax')">
-            <v-icon
-              large
-              color="green darken-2"
-            >
-              mdi-call-split
-            </v-icon>
-          </v-btn>
-          <v-btn @click="swapItem(item, index, 'up')">
-            <v-icon
-              large
-              color="green darken-2"
-            >
-              mdi-message-text
-            </v-icon>
-          </v-btn>
-          <v-btn @click="swapItem(item, index, 'down')">
-            <v-icon
-              large
-              color="green darken-2"
-            >
-              mdi-domain
-            </v-icon>
-          </v-btn>
-          <v-btn @click="swapItem(item, index, 'downMax')">
-            <v-icon
-              large
-              color="green darken-2"
-            >
-              mdi-dialpad
-            </v-icon>
-          </v-btn>
+          <span>
+            <v-btn @click="swapItem(item, index, 'upMax')">
+              <v-icon
+                large
+                color="green darken-2"
+              >
+                mdi-call-split
+              </v-icon>
+            </v-btn>
+            <v-btn @click="swapItem(item, index, 'up')">
+              <v-icon
+                large
+                color="green darken-2"
+              >
+                mdi-message-text
+              </v-icon>
+            </v-btn>
+            <v-btn @click="swapItem(item, index, 'down')">
+              <v-icon
+                large
+                color="green darken-2"
+              >
+                mdi-domain
+              </v-icon>
+            </v-btn>
+            <v-btn @click="swapItem(item, index, 'downMax')">
+              <v-icon
+                large
+                color="green darken-2"
+              >
+                mdi-dialpad
+              </v-icon>
+            </v-btn>
+          </span>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
     </v-card>
   </v-app>
 </div>
