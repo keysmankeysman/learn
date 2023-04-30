@@ -18,15 +18,15 @@
       <v-list-item three-line v-for="(item, index) in headers" :key="item.text" class="headers__list">
         <v-list-item-content>
           <v-list-item-title>{{ item.text  }}</v-list-item-title>
-          <v-btn @click="swapItem(item, index, 'up')">
+          <v-btn @click="swapItem(item, index, 'upMax')">
             <v-icon
               large
               color="green darken-2"
             >
-              mdi-domain
+              mdi-call-split
             </v-icon>
           </v-btn>
-          <v-btn @click="swapItem(item, index, 'down')">
+          <v-btn @click="swapItem(item, index, 'up')">
             <v-icon
               large
               color="green darken-2"
@@ -34,7 +34,22 @@
               mdi-message-text
             </v-icon>
           </v-btn>
-
+          <v-btn @click="swapItem(item, index, 'down')">
+            <v-icon
+              large
+              color="green darken-2"
+            >
+              mdi-domain
+            </v-icon>
+          </v-btn>
+          <v-btn @click="swapItem(item, index, 'downMax')">
+            <v-icon
+              large
+              color="green darken-2"
+            >
+              mdi-dialpad
+            </v-icon>
+          </v-btn>
         </v-list-item-content>
       </v-list-item>
     </v-card>
@@ -128,6 +143,18 @@ new Vue({
           compIndex = i + 1
         }
         console.log('compIndex', compIndex)
+        copyHeaders.splice(compIndex, 0, item)
+        this.headers = []
+        this.headers = copyHeaders
+        break;
+      case 'upMax': 
+        compIndex = 0
+        copyHeaders.splice(compIndex, 0, item)
+        this.headers = []
+        this.headers = copyHeaders
+        break;
+      case 'downMax': 
+        compIndex = copyHeaders.length
         copyHeaders.splice(compIndex, 0, item)
         this.headers = []
         this.headers = copyHeaders
