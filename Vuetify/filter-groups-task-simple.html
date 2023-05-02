@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+
+<div id="app">
+  <v-app>
+    <div v-for="partFilter in filters">
+      Фильтры {{ partFilter.operator }}
+      <v-chip-group>
+        <v-chip
+          :key="index"
+          color="#777c8b"
+          style="cursor: move"
+          class="column__items__item"
+          v-for="(item, index) in partFilter.filters"
+        >
+          <div class="subtitle-2">
+            {{ item.visibleName }}
+          </div>
+          <v-select
+            :append-icon="''"
+            :items="
+              item.type === 'String'
+                ? operatorItemsForString
+                : operatorItems
+            "
+            :key="updateKey"
+            :menu-props="{
+              value: item.isOpenFilter,
+              bottom: true,
+              offsetY: true,
+            }"
+            @input="handleItemMenu(index, 'filter')"
+            @change="handleFilters(index, null, item.operator)"
+            @click="handleItemMenu(index, 'filter')"
+            background-color="#777c8b"
+            class="item"
+            dark
+            dense
+            flat
+            height="38px"
+            hide-details
+            item-color="primary_text"
+            solo
+            style="margin-bottom: 2px; font-size: 14px"
+            v-model="item.operator"
+          />
+        </v-chip>
+      </v-chip-group>
+    </div>
+
+  </v-app>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="vuetify.js"></script>
+<script>
+
+new Vue({
+  el: '#app',
+  vuetify: new Vuetify(),
+  data: () => ({
+    filters: [
+      { 
+        filters: [{
+          columnName: 'duration',
+          type: 'UInt32',
+          visibleName: 'duration',
+          value: '0',
+          operator: '=',
+          fieldName: 'duration',
+          isOpenColumn: false
+        }, {
+          columnName: 'brokeringusername',
+          type: 'String',
+          visibleName: 'brokeringusername',
+          value: 'User6',
+          operator: '=',
+          fieldName: 'brokeringusername',
+          isOpenColumn: false
+        }, {
+          columnName: 'machinename',
+          type: 'String',
+          visibleName: 'machinename',
+          value: '',
+          operator: 'like',
+          fieldName: 'machinename',
+          isOpenColumn: false
+        }], 
+        operator: "or"
+      },
+      { 
+        filters: [{
+          columnName: "duration",
+          type: "UInt32",
+          visibleName: "duration",
+          value: "0",
+          operator: "=",
+          fieldName: "duration",
+          isOpenColumn: false
+        }, {
+          columnName: "brokeringusername",
+          type: "String",
+          visibleName: "brokeringusername",
+          value: "User1",
+          operator: "=",
+          fieldName: "brokeringusername",
+          isOpenColumn: false
+        }], 
+        operator: "and" 
+      }
+    ],
+    isInputEditing: false,
+    tags: [
+      'Work',
+      'Home Improvement',
+      'Vacation',
+      'Food',
+      'Drawers',
+      'Shopping',
+      'Art',
+      'Tech',
+      'Creative Writing',
+    ],
+    updateKey: 1,
+    filtersArray: [{
+      columnName: 'duration',
+      type: 'UInt32',
+      visibleName: 'duration',
+      value: '0',
+      operator: '=',
+      fieldName: 'duration',
+      isOpenColumn: false
+    }, {
+      columnName: 'brokeringusername',
+      type: 'String',
+      visibleName: 'brokeringusername',
+      value: 'User6',
+      operator: '=',
+      fieldName: 'brokeringusername',
+      isOpenColumn: false
+    }, {
+      columnName: 'machinename',
+      type: 'String',
+      visibleName: 'machinename',
+      value: '',
+      operator: 'like',
+      fieldName: 'machinename',
+      isOpenColumn: false
+    }],
+    operatorItems: [{
+      text: "=",
+      value: "="
+    }, {
+      text: "!=",
+      value: "!="
+    }, {
+      text: ">",
+      value: ">"
+    }, {
+      text: "<",
+      value: "<"
+    }, {
+      text: "Содержит",
+      value: "like",
+      disabled: true
+    }, {
+      text: "Не содержит",
+      value: "not like",
+      disabled: true
+    }],
+    operatorItemsForString: [
+      { text: "=", value: "=" },
+      { text: "!=", value: "!=" },
+      { text: ">", value: ">", disabled: true },
+      { text: "<", value: "<", disabled: true },
+      { text: "Содержит", value: "like" },
+      { text: "Не содержит", value: "not like" },
+    ],
+    columnsArray: [{
+      columnName: "duration",
+      type: "UInt32",
+      visibleName: "duration",
+      aliasName: "Количество",
+      fieldName: "duration",
+      function: "COUNT",
+      isOpenColumn: false,
+      unit: null
+    }],
+    groupsArray: [],
+    ordersArray: [],
+  }),
+
+  methods: {
+    handleItemMenu(index, item) {
+      if (item === "column") {
+        this.columnsArray[index].isOpenColumn =
+          !this.columnsArray[index].isOpenColumn;
+      }
+      if (item === "unit") {
+        this.columnsArray[index].isOpenUnit =
+          !this.columnsArray[index].isOpenUnit;
+      }
+      if (item === "filter") {
+        this.filtersArray[index].isOpenFilter =
+          !this.filtersArray[index].isOpenFilter;
+      }
+      if (item === "order") {
+        this.ordersArray[index].isOpenOrder =
+          !this.ordersArray[index].isOpenOrder;
+      }
+      this.updateKey++;
+      this.columnsUpdateKey++;
+    },
+    handleFilters(index, column, operator, value) {
+      if (index === null) {
+        const id = this.filtersArray.length
+          ? this.filtersArray[this.filtersArray.length - 1].id + 1
+          : 1;
+
+        this.filtersArray.push({
+          id: id,
+          ...column,
+        });
+
+        let lastIndex = this.filtersArray.length - 1;
+        this.filtersArray[lastIndex].fieldName = column.fieldName;
+        this.filtersArray[lastIndex].value = "";
+        this.filtersArray[lastIndex].isOpenFilter = true;
+      } else {
+        if (column) {
+          this.filtersArray[index].fieldName = column.fieldName;
+        }
+        if (operator) {
+          this.filtersArray[index].operator = operator;
+          this.filtersArray[index].isOpenFilter = false;
+          this.updateKey++;
+          this.columnsUpdateKey++;
+        }
+        if (value) {
+          this.filtersArray[index].value = value;
+        }
+
+        this.submitForm();
+      }
+    },
+    submitForm() {
+      console.log('submitForm start.')
+      console.log('this.columnsArray', this.columnsArray)
+      const columns = this.columnsArray.map((el) => {
+        const tempColumns = {
+          fieldName: el.fieldName,
+          operator: el.function,
+        };
+
+        if (el.aliasName) {
+          tempColumns.visibleName = el.aliasName;
+        }
+
+        if (el.unit) {
+          tempColumns.unit = el.unit;
+        }
+
+        return tempColumns;
+      });
+
+      const filters = this.filtersArray.map((el) => {
+        return {
+          fieldName: el.fieldName,
+          operator: el.operator,
+          value: el.value,
+        };
+      });
+      const groups = this.groupsArray.map((el) => {
+        return el.fieldName;
+      });
+
+      const orders = this.ordersArray.map((el) => {
+        return {
+          fieldName: el.columnName,
+          direction: el.direction,
+        };
+      });
+
+      this.formData = {
+        resourceId: this.selectedSource,
+        periodId: 3,
+        properties: {
+          limit: this.limit,
+          groupBy: groups,
+          columns: columns,
+          filters: filters,
+          orders: orders,
+          varibles: [{ name: "unit", value: this.selectedByte }],
+          ShowOther: this.showOthers,
+          TimeLine: this.TimeLine,
+        },
+      };
+      // this.$eventManager.$emit("getPreviewData", this.formData);
+    },
+  }
+})
+
+
+</script>
+</body>
+</html>
