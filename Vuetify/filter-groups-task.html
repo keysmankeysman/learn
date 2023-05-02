@@ -80,6 +80,7 @@ new Vue({
   el: '#app',
   vuetify: new Vuetify(),
   data: () => ({
+    isInputEditing: false,
     tags: [
       'Work',
       'Home Improvement',
@@ -146,9 +147,32 @@ new Vue({
       { text: "Содержит", value: "like" },
       { text: "Не содержит", value: "not like" },
     ],
+    columnsArray: [{
+      columnName: "duration",
+      type: "UInt32",
+      visibleName: "duration",
+      aliasName: "Количество",
+      fieldName: "duration",
+      function: "COUNT",
+      isOpenColumn: false,
+      unit: null
+    }],
+    groupsArray: [],
+    ordersArray: [],
   }),
 
   methods: {
+    filterValueDebounce(index, column, operator, value) {
+      //hot fix, не обновлялась ширина у инпута
+      this.$refs[`filterInput${index}`][0].style.width =
+        this.getInputWidth(value);
+
+      clearTimeout(this.filtersDebounceId);
+
+      this.filtersDebounceId = setTimeout(() => {
+        this.handleFilters(index, column, operator, value);
+      }, 2000);
+    },
     getInputWidth(text) {
       let el = document.createElement("div");
       document.body.append(el);
@@ -177,6 +201,92 @@ new Vue({
       }
       this.updateKey++;
       this.columnsUpdateKey++;
+    },
+    handleFilters(index, column, operator, value) {
+      if (index === null) {
+        const id = this.filtersArray.length
+          ? this.filtersArray[this.filtersArray.length - 1].id + 1
+          : 1;
+
+        this.filtersArray.push({
+          id: id,
+          ...column,
+        });
+
+        let lastIndex = this.filtersArray.length - 1;
+        this.filtersArray[lastIndex].fieldName = column.fieldName;
+        this.filtersArray[lastIndex].value = "";
+        this.filtersArray[lastIndex].isOpenFilter = true;
+      } else {
+        if (column) {
+          this.filtersArray[index].fieldName = column.fieldName;
+        }
+        if (operator) {
+          this.filtersArray[index].operator = operator;
+          this.filtersArray[index].isOpenFilter = false;
+          this.updateKey++;
+          this.columnsUpdateKey++;
+        }
+        if (value) {
+          this.filtersArray[index].value = value;
+        }
+
+        this.submitForm();
+      }
+    },
+    submitForm() {
+      console.log('submitForm start.')
+      console.log('this.columnsArray', this.columnsArray)
+      const columns = this.columnsArray.map((el) => {
+        const tempColumns = {
+          fieldName: el.fieldName,
+          operator: el.function,
+        };
+
+        if (el.aliasName) {
+          tempColumns.visibleName = el.aliasName;
+        }
+
+        if (el.unit) {
+          tempColumns.unit = el.unit;
+        }
+
+        return tempColumns;
+      });
+
+      const filters = this.filtersArray.map((el) => {
+        return {
+          fieldName: el.fieldName,
+          operator: el.operator,
+          value: el.value,
+        };
+      });
+      const groups = this.groupsArray.map((el) => {
+        return el.fieldName;
+      });
+
+      const orders = this.ordersArray.map((el) => {
+        return {
+          fieldName: el.columnName,
+          direction: el.direction,
+        };
+      });
+
+      this.formData = {
+        resourceId: this.selectedSource,
+        periodId: 3,
+        properties: {
+          limit: this.limit,
+          groupBy: groups,
+          columns: columns,
+          filters: filters,
+          orders: orders,
+          varibles: [{ name: "unit", value: this.selectedByte }],
+          ShowOther: this.showOthers,
+          TimeLine: this.TimeLine,
+        },
+      };
+      // this.$eventManager.$emit("getPreviewData", this.formData);
     },
   }
 })
